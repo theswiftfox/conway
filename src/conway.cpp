@@ -37,16 +37,7 @@ void Conway::initGrid()
 
     for (auto i = 0; i < maxInitCells; i++)
     {
-        // bool shouldGenerate = (rand() % 2) == 1;
-        // if (shouldGenerate)
-        // {
-        auto idx = dist(rng);
-        grid[idx] = 1;
-        // grid[idx - 1] = 1;
-        // grid[idx - gridWidth] = 1;
-        // grid[idx - gridWidth - 1] = 1;
-        // // generatedCells++;
-        // }
+        grid[dist(rng)] = 1;
     }
 }
 
