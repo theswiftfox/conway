@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 
     SDL_SetWindowTitle(window, "Conway's Game of Life");
 
-    Conway conway(30, 30, window, renderer);
+    Conway conway(30, 30, window, renderer, false);
 
     bool quit = false;
     bool pause = false;

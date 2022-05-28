@@ -1,6 +1,7 @@
 #include "conway.h"
 
 #include <iostream>
+#include <random>
 
 Conway::Conway(int w, int h, SDL_Window *hWin, SDL_Renderer *hRenderer, bool infiniteModeGrid) : useInfiniteModeGrid(infiniteModeGrid),
                                                                                                  gridWidth(w),
@@ -22,16 +23,22 @@ Conway::Conway(int w, int h, SDL_Window *hWin, SDL_Renderer *hRenderer, bool inf
 
 void Conway::initGrid()
 {
-    int maxInitCells = 20; // fixme: whats a good inital value?
+    int maxInitCells = 300; // fixme: whats a good inital value?
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<std::mt19937::result_type> dist(0, gridWidth * gridHeight);
 
     for (auto i = 0; i < maxInitCells; i++)
     {
         // bool shouldGenerate = (rand() % 2) == 1;
         // if (shouldGenerate)
         // {
-        auto idx = rand() % (gridWidth * gridHeight);
+        auto idx = dist(rng);
         grid[idx] = 1;
-        // generatedCells++;
+        // grid[idx - 1] = 1;
+        // grid[idx - gridWidth] = 1;
+        // grid[idx - gridWidth - 1] = 1;
+        // // generatedCells++;
         // }
     }
 }
@@ -50,13 +57,15 @@ void Conway::printGrid()
 
 void Conway::update()
 {
+    auto newGrid = std::make_unique<int[]>(gridWidth * gridHeight);
     for (auto y = 0; y < gridHeight; y++)
     {
         for (auto x = 0; x < gridWidth; x++)
         {
-            grid[y * gridWidth + x] = checkCell(x, y);
+            newGrid[y * gridWidth + x] = checkCell(x, y);
         }
     }
+    grid = std::move(newGrid);
     draw();
 }
 
@@ -77,7 +86,11 @@ int Conway::checkCell(int x, int y)
         return 1;
     }
 
-    return neighbors == 2 || neighbors == 3 ? 1 : 0;
+    if (cell == 1 && (neighbors == 2 || neighbors == 3))
+    {
+        return 1;
+    }
+    return 0;
 }
 
 int Conway::cellAt(int x, int y)
