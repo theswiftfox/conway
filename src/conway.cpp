@@ -10,7 +10,7 @@ Conway::Conway(int w, int h, SDL_Window *hWin, SDL_Renderer *hRenderer, bool inf
     auto size = w * h;
     grid = std::make_unique<int[]>(size);
     initGrid();
-    printGrid();
+    // printGrid();
 
     SDL_GetWindowSize(hWin, &windowWidth, &windowHeight);
     gridCellSize = {
@@ -21,9 +21,16 @@ Conway::Conway(int w, int h, SDL_Window *hWin, SDL_Renderer *hRenderer, bool inf
     sdlRenderer = std::shared_ptr<SDL_Renderer>(hRenderer, SDL_DestroyRenderer);
 }
 
+void Conway::reset()
+{
+    auto size = gridWidth * gridHeight;
+    grid = std::make_unique<int[]>(size);
+    initGrid();
+}
+
 void Conway::initGrid()
 {
-    int maxInitCells = 300; // fixme: whats a good inital value?
+    int maxInitCells = 150; // fixme: whats a good inital value?
     std::random_device dev;
     std::mt19937 rng(dev());
     std::uniform_int_distribution<std::mt19937::result_type> dist(0, gridWidth * gridHeight);

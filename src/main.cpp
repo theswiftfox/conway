@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 
     SDL_SetWindowTitle(window, "Conway's Game of Life");
 
-    Conway conway(30, 30, window, renderer, false);
+    Conway conway(30, 30, window, renderer);
 
     bool quit = false;
     bool pause = false;
@@ -55,8 +55,14 @@ int main(int argc, char **argv)
             {
                 switch (event.key.keysym.sym)
                 {
+                case SDLK_ESCAPE:
+                    quit = true;
+                    break;
                 case SDLK_SPACE:
                     pause = !pause;
+                    break;
+                case SDLK_F8:
+                    conway.reset();
                     break;
                 }
             }

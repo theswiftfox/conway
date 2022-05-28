@@ -18,6 +18,7 @@ class Conway
 public:
     Conway(int w, int h, SDL_Window *hWin, SDL_Renderer *hRenderer, bool infiniteMode = true);
     void update();
+    void reset();
 
 private:
     int gridWidth, gridHeight;
