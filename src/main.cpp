@@ -38,7 +38,7 @@ int main(int argc, char **argv)
     bool quit = false;
     bool pause = false;
     auto lt = getClockInMs();
-    auto timeUntilUpdate = 0;
+    auto timeUntilUpdate = 0ll;
     while (!quit)
     {
         auto ts = getClockInMs();

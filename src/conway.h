@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 const SDL_Color grid_background = {22, 22, 22, 255};    // Blackish
 const SDL_Color grid_line_color = {44, 44, 44, 255};    // Dark gray
